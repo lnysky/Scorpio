@@ -1,39 +1,70 @@
-# loading
+# scorpio
 
 #### 项目介绍
-{**以下是码云平台说明，您可以替换为您的项目简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
-
-#### 软件架构
-软件架构说明
+状态切换框架，内置数据为空，错误，加载中三种默认布局。
 
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+```groovy
+implementation 'com.lnysky.tech:scorpio:0.0.1'
+```
 
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+```java
+public class MainActivity extends AppCompatActivity {
 
-#### 参与贡献
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //Scorpio.content(this).show();
+        Scorpio.loading(this).setTips("加载中...").show();
+        //Scorpio.empty(this).setTips("主页面空空的~~").show();
+        //Scorpio.error(this).setRetryText("重新加载")
+        //                .setOnRetryListener(new View.OnClickListener() {
+        //                    @Override
+        //                    public void onClick(View v) {
+        //                        Scorpio.loading(MainActivity.this).show();
+        //                    }
+        //                }).show();
+        //Scorpio.with(this).get(CustomState.class).show();
+    }
+}
+```
 
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+```java
+public static class CustomState extends State<CustomState.ViewHolder> {
 
+        public CustomState(StateSwitcher switcher) {
+            super(switcher);
+        }
 
-#### 码云特技
+        @Override
+        protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.custom, parent, false);
+            return new ViewHolder(view);
+        }
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [http://git.mydoc.io/](http://git.mydoc.io/)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+        @Override
+        protected void onSwitchState(ViewHolder holder, boolean show) {
+            super.onSwitchState(holder, show);
+            AlphaAnimation animation;
+            if (show) {
+                animation = new AlphaAnimation(0f, 1f);
+            } else {
+                animation = new AlphaAnimation(1f, 0f);
+            }
+            animation.setDuration(1000);
+            holder.getView().startAnimation(animation);
+        }
+
+        static class ViewHolder extends StateViewHolder {
+
+            ViewHolder(View view) {
+                super(view);
+            }
+        }
+    }
+```
