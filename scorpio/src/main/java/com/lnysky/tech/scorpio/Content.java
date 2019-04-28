@@ -7,17 +7,18 @@ import android.view.ViewGroup;
 /**
  * Created by lny on 2018/11/28.
  */
-public final class Content extends Provider {
+public final class Content extends State {
 
     private View view;
 
-    void setView(View view) {
+    public Content(StateSwitcher switcher, View view) {
+        super(switcher);
         this.view = view;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent) {
-        return view;
+    public StateViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        return new StateViewHolder(view);
     }
 
 }

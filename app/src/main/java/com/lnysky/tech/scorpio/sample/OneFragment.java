@@ -66,21 +66,21 @@ public class OneFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_loading:
-                Scorpio.with(test).loading().show();
+                Scorpio.loading(test).show();
                 break;
             case R.id.tv_empty:
-                Scorpio.with(test).empty().show();
+                Scorpio.empty(test).show();
                 break;
             case R.id.tv_error:
-                Scorpio.with(test).error().setOnRetryListener(new View.OnClickListener() {
+                Scorpio.error(test).setOnRetryListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Scorpio.with(test).loading().show();
+                        Scorpio.loading(test).show();
                     }
                 }).show();
                 break;
             case R.id.tv_content:
-                Scorpio.with(test).content().show();
+                Scorpio.content(test).show();
                 break;
         }
     }

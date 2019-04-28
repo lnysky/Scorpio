@@ -1,5 +1,6 @@
 package com.lnysky.tech.scorpio;
 
+import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,31 +10,51 @@ import android.widget.TextView;
 /**
  * Created by lny on 2018/11/28.
  */
-public class Empty extends Provider {
+public class Empty extends State<Empty.ViewHolder> {
 
-    private ImageView emptyImage;
-    private TextView emptyText;
+    @DrawableRes
+    private int img;
+    private String tips;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.scorpio_state_empty, parent, false);
-        emptyImage = view.findViewById(R.id.empty_image);
-        emptyText = view.findViewById(R.id.empty_text);
-        return view;
+    public Empty(StateSwitcher switcher) {
+        super(switcher);
     }
 
-    public Empty setImg(int img) {
-        if (emptyImage != null) {
-            emptyImage.setImageResource(img);
+    @Override
+    public ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+        View view = inflater.inflate(R.layout.scorpio_state_empty, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    protected void onSwitchState(ViewHolder holder, boolean show) {
+        super.onSwitchState(holder, show);
+        if (img != 0) {
+            holder.emptyImage.setImageResource(img);
         }
+        holder.emptyText.setText(tips);
+    }
+
+    public Empty setImg(@DrawableRes int img) {
+        this.img = img;
         return this;
     }
 
     public Empty setTips(String tips) {
-        if (emptyText != null) {
-            emptyText.setText(tips);
-        }
+        this.tips = tips;
         return this;
+    }
+
+    static class ViewHolder extends StateViewHolder {
+
+        ImageView emptyImage;
+        TextView emptyText;
+
+        ViewHolder(View view) {
+            super(view);
+            emptyImage = view.findViewById(R.id.empty_image);
+            emptyText = view.findViewById(R.id.empty_text);
+        }
     }
 
 }

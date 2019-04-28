@@ -65,4 +65,68 @@ public class Scorpio {
         }
     }
 
+    public static Content content(Activity activity) {
+        return with(activity).get(Content.class);
+    }
+
+    public static Content content(Fragment fragment) {
+        return with(fragment).get(Content.class);
+    }
+
+    public static Content content(android.app.Fragment fragment) {
+        return with(fragment).get(Content.class);
+    }
+
+    public static Content content(View view) {
+        return with(view).get(Content.class);
+    }
+
+    public static Loading loading(Activity activity) {
+        return with(activity).get(Loading.class);
+    }
+
+    public static Loading loading(Fragment fragment) {
+        return with(fragment).get(Loading.class);
+    }
+
+    public static Loading loading(android.app.Fragment fragment) {
+        return with(fragment).get(Loading.class);
+    }
+
+    public static Loading loading(View view) {
+        return with(view).get(Loading.class);
+    }
+
+    public static Empty empty(Activity activity) {
+        return with(activity).get(Empty.class);
+    }
+
+    public static Empty empty(Fragment fragment) {
+        return with(fragment).get(Empty.class);
+    }
+
+    public static Empty empty(android.app.Fragment fragment) {
+        return with(fragment).get(Empty.class);
+    }
+
+    public static Empty empty(View view) {
+        return with(view).get(Empty.class);
+    }
+
+    public static Error error(Activity activity) {
+        return with(activity).get(Error.class);
+    }
+
+    public static Error error(Fragment fragment) {
+        return with(fragment).get(Error.class);
+    }
+
+    public static Error error(android.app.Fragment fragment) {
+        return with(fragment).get(Error.class);
+    }
+
+    public static Error error(View view) {
+        return with(view).get(Error.class);
+    }
+
 }

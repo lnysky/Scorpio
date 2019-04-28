@@ -2,13 +2,6 @@ package com.lnysky.tech.scorpio;
 
 public interface Bar {
 
-    Loading loading();
+    <T extends State> T get(Class<T> clazz);
 
-    Content content();
-
-    Empty empty();
-
-    Error error();
-
-    <T extends Provider> T get(Class<T> clazz);
 }

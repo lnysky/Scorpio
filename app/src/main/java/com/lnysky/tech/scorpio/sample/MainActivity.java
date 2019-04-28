@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 
-import com.lnysky.tech.scorpio.Provider;
 import com.lnysky.tech.scorpio.Scorpio;
+import com.lnysky.tech.scorpio.State;
+import com.lnysky.tech.scorpio.StateSwitcher;
+import com.lnysky.tech.scorpio.StateViewHolder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,26 +31,26 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_loading:
-                Scorpio.with(this).loading().setTips("加载中...").show();
+                Scorpio.loading(this).setTips("加载中...").show();
                 return true;
             case R.id.action_empty:
-                Scorpio.with(this).empty().setTips("主页面空空的~~").show();
+                Scorpio.empty(this).setTips("主页面空空的~~").show();
                 return true;
             case R.id.action_error:
-                Scorpio.with(this).error()
+                Scorpio.error(this)
                         .setRetryText("重新加载")
                         .setOnRetryListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Scorpio.with(MainActivity.this).loading().show();
+                                Scorpio.loading(MainActivity.this).show();
                             }
                         }).show();
                 return true;
             case R.id.action_custom:
-                Scorpio.with(this).get(CustomProvider.class).show();
+                Scorpio.with(this).get(CustomState.class).show();
                 return true;
             case R.id.action_content:
-                Scorpio.with(this).content().show();
+                Scorpio.content(this).show();
                 return true;
         }
         return false;
@@ -60,23 +62,36 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public static class CustomProvider extends Provider {
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup parent) {
-            return inflater.inflate(R.layout.custom, parent, false);
+    public static class CustomState extends State<CustomState.ViewHolder> {
+
+        public CustomState(StateSwitcher switcher) {
+            super(switcher);
         }
 
         @Override
-        protected void onDisplay(boolean display) {
-            super.onDisplay(display);
+        protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            View view = inflater.inflate(R.layout.custom, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        protected void onSwitchState(ViewHolder holder, boolean show) {
+            super.onSwitchState(holder, show);
             AlphaAnimation animation;
-            if (display) {
+            if (show) {
                 animation = new AlphaAnimation(0f, 1f);
             } else {
                 animation = new AlphaAnimation(1f, 0f);
             }
             animation.setDuration(1000);
-            getView().startAnimation(animation);
+            holder.getView().startAnimation(animation);
+        }
+
+        static class ViewHolder extends StateViewHolder {
+
+            ViewHolder(View view) {
+                super(view);
+            }
         }
     }
 

@@ -78,21 +78,21 @@ public class TestFragment extends Fragment {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_loading:
-                Scorpio.with(this).loading().show();
+                Scorpio.loading(this).show();
                 break;
             case R.id.action_empty:
-                Scorpio.with(this).empty().show();
+                Scorpio.empty(this).show();
                 break;
             case R.id.action_error:
-                Scorpio.with(this).error().setOnRetryListener(new View.OnClickListener() {
+                Scorpio.error(this).setOnRetryListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Scorpio.with(TestFragment.this).loading().show();
+                        Scorpio.loading(TestFragment.this).show();
                     }
                 }).show();
                 break;
             case R.id.action_content:
-                Scorpio.with(this).content().show();
+                Scorpio.content(this).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
