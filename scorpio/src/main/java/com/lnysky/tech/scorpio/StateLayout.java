@@ -28,12 +28,12 @@ final class StateLayout extends FrameLayout implements Bar, StateSwitcher {
         super(view.getContext());
         inflater = LayoutInflater.from(view.getContext());
         stateProvider = new StateProvider();
-        defaultFactory = new StateProvider.DefaultFactory(this);
+        defaultFactory = new StateProvider.DefaultFactory();
         init(view);
     }
 
     private void init(View view) {
-        switchState(get(Content.class, new ContentStateFactory(this, view)));
+        switchState(get(Content.class, new ContentStateFactory(view)));
     }
 
     @Override
@@ -81,15 +81,16 @@ final class StateLayout extends FrameLayout implements Bar, StateSwitcher {
     }
 
     public <T extends State> T get(Class<T> clazz, @NonNull StateProvider.Factory factory) {
-        return stateProvider.get(clazz, factory);
+        T state = stateProvider.get(clazz, factory);
+        state.setSwitcher(this);
+        return state;
     }
 
     static class ContentStateFactory extends StateProvider.DefaultFactory {
 
         private View view;
 
-        ContentStateFactory(StateSwitcher switcher, View view) {
-            super(switcher);
+        ContentStateFactory(View view) {
             this.view = view;
         }
 
@@ -99,8 +100,7 @@ final class StateLayout extends FrameLayout implements Bar, StateSwitcher {
         public <T extends State> T create(@NonNull Class<T> modelClass) {
             //noinspection TryWithIdenticalCatches
             try {
-                return modelClass.getConstructor(StateSwitcher.class, View.class)
-                        .newInstance(switcher, view);
+                return modelClass.getConstructor(View.class).newInstance(view);
             } catch (InstantiationException e) {
                 throw new RuntimeException("Cannot create an instance of " + modelClass, e);
             } catch (IllegalAccessException e) {

@@ -11,8 +11,7 @@ public final class Content extends State {
 
     private View view;
 
-    public Content(StateSwitcher switcher, View view) {
-        super(switcher);
+    public Content(View view) {
         this.view = view;
     }
 

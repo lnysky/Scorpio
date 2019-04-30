@@ -12,7 +12,6 @@ import android.view.animation.AlphaAnimation;
 
 import com.lnysky.tech.scorpio.Scorpio;
 import com.lnysky.tech.scorpio.State;
-import com.lnysky.tech.scorpio.StateSwitcher;
 import com.lnysky.tech.scorpio.StateViewHolder;
 
 public class MainActivity extends AppCompatActivity {
@@ -63,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class CustomState extends State<CustomState.ViewHolder> {
-
-        public CustomState(StateSwitcher switcher) {
-            super(switcher);
-        }
 
         @Override
         protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {

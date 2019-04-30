@@ -18,10 +18,6 @@ public class Error extends State<Error.ViewHolder> {
     @DrawableRes
     private int errorImage;
 
-    public Error(StateSwitcher switcher) {
-        super(switcher);
-    }
-
     @Override
     protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_error, parent, false);
