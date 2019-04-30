@@ -12,10 +12,6 @@ public class Loading extends State<Loading.ViewHolder> {
 
     private String tips;
 
-    public Loading(StateSwitcher switcher) {
-        super(switcher);
-    }
-
     public Loading setTips(String tips) {
         this.tips = tips;
         return this;

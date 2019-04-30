@@ -16,10 +16,6 @@ public class Empty extends State<Empty.ViewHolder> {
     private int img;
     private String tips;
 
-    public Empty(StateSwitcher switcher) {
-        super(switcher);
-    }
-
     @Override
     public ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_empty, parent, false);

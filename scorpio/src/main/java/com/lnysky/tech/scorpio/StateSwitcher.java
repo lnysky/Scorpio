@@ -1,5 +1,5 @@
 package com.lnysky.tech.scorpio;
 
-public interface StateSwitcher {
+interface StateSwitcher {
     void switchState(State state);
 }

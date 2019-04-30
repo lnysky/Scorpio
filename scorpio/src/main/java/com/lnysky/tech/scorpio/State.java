@@ -11,7 +11,7 @@ public abstract class State<VH extends StateViewHolder> {
 
     private StateSwitcher switcher;
 
-    public State(StateSwitcher switcher) {
+    void setSwitcher(StateSwitcher switcher) {
         this.switcher = switcher;
     }
 

@@ -2,8 +2,6 @@ package com.lnysky.tech.scorpio;
 
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * Created by lny on 2018/11/28.
  */
@@ -36,26 +34,16 @@ final class StateProvider {
 
     static class DefaultFactory implements Factory {
 
-        StateSwitcher switcher;
-
-        DefaultFactory(StateSwitcher switcher) {
-            this.switcher = switcher;
-        }
-
         @SuppressWarnings("ClassNewInstance")
         @NonNull
         @Override
         public <T extends State> T create(@NonNull Class<T> modelClass) {
             //noinspection TryWithIdenticalCatches
             try {
-                return modelClass.getConstructor(StateSwitcher.class).newInstance(switcher);
+                return modelClass.newInstance();
             } catch (InstantiationException e) {
                 throw new RuntimeException("Cannot create an instance of " + modelClass, e);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("Cannot create an instance of " + modelClass, e);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException("Cannot create an instance of " + modelClass, e);
-            } catch (InvocationTargetException e) {
                 throw new RuntimeException("Cannot create an instance of " + modelClass, e);
             }
         }
