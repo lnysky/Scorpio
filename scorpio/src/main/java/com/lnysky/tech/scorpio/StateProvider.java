@@ -1,6 +1,7 @@
 package com.lnysky.tech.scorpio;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by lny on 2018/11/28.

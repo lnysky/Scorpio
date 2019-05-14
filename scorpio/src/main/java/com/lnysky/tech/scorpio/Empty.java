@@ -1,11 +1,12 @@
 package com.lnysky.tech.scorpio;
 
-import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * Created by lny on 2018/11/28.

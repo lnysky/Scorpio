@@ -1,11 +1,12 @@
 package com.lnysky.tech.scorpio;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.RelativeLayout;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Created by lny on 2018/11/28.

@@ -1,7 +1,6 @@
 package com.lnysky.tech.scorpio;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
@@ -10,6 +9,8 @@ import android.widget.FrameLayout;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by lny on 2018/11/28.
@@ -41,7 +42,7 @@ final class StateLayout extends FrameLayout implements Bar, StateSwitcher {
         show(state, getStateViewHolder(state));
     }
 
-    public void show(State state, StateViewHolder viewHolder) {
+    private void show(State state, StateViewHolder viewHolder) {
         if (!state.equals(currentState)) {
             if (currentState != null) {
                 //noinspection unchecked
@@ -80,9 +81,9 @@ final class StateLayout extends FrameLayout implements Bar, StateSwitcher {
         return get(clazz, defaultFactory);
     }
 
-    public <T extends State> T get(Class<T> clazz, @NonNull StateProvider.Factory factory) {
+    private <T extends State> T get(Class<T> clazz, @NonNull StateProvider.Factory factory) {
         T state = stateProvider.get(clazz, factory);
-        state.setSwitcher(this);
+        state.switcher = this;
         return state;
     }
 

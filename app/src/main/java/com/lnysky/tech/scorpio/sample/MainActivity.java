@@ -2,7 +2,6 @@ package com.lnysky.tech.scorpio.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +12,8 @@ import android.view.animation.AlphaAnimation;
 import com.lnysky.tech.scorpio.Scorpio;
 import com.lnysky.tech.scorpio.State;
 import com.lnysky.tech.scorpio.StateViewHolder;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
