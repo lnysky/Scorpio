@@ -17,7 +17,7 @@ ext {
     ]
 
     bintray = [
-            version       : "0.0.1", // 指定库的版本号
+            version       : "0.0.2", // 指定库的版本号
             group         : "com.lnysky.tech", // 库的group名，确定好之后不能修改
 
             siteUrl       : "https://github.com/lnysky/scorpio.git", // 项目开源地址
