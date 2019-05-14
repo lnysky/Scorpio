@@ -7,16 +7,16 @@ import java.util.HashMap;
  */
 class StateStore {
 
-    private HashMap<String, State> mProviders = new HashMap<>();
+    private HashMap<String, State> store = new HashMap<>();
 
     void put(String key, State state) {
-        if (mProviders.get(key) != null) {
+        if (store.get(key) != null) {
             throw new IllegalArgumentException("state is registered");
         }
-        mProviders.put(key, state);
+        store.put(key, state);
     }
 
     State get(String key) {
-        return mProviders.get(key);
+        return store.get(key);
     }
 }

@@ -9,13 +9,10 @@ import android.view.ViewGroup;
  */
 public abstract class State<VH extends StateViewHolder> {
 
-    private StateSwitcher switcher;
-
-    void setSwitcher(StateSwitcher switcher) {
-        this.switcher = switcher;
-    }
+    StateSwitcher switcher;
 
     public void show() {
+        if (switcher == null) throw new NullPointerException("must be set switcher");
         switcher.switchState(this);
     }
 

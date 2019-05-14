@@ -1,8 +1,9 @@
 package com.lnysky.tech.scorpio.sample;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class TestActivity extends AppCompatActivity {
 
