@@ -3,77 +3,50 @@ package com.lnysky.tech.scorpio.sample;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lnysky.tech.scorpio.Scorpio;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-public class TestFragment extends Fragment {
+public class Test2Fragment extends Fragment {
 
-    public TestFragment() {
+    public Test2Fragment() {
         // Required empty public constructor
     }
 
-    public static TestFragment newInstance() {
-        TestFragment fragment = new TestFragment();
+    public static Test2Fragment newInstance() {
+        Test2Fragment fragment = new Test2Fragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_test, container, false);
+        View view = inflater.inflate(R.layout.fragment_test2, container, false);
+        return Scorpio.with(this).wrapper(view);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (isVisible()) {
-            inflater.inflate(R.menu.state, menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
-            case R.id.action_loading:
+    public void show(int state) {
+        switch (state) {
+            case 1:
                 loading();
                 break;
-            case R.id.action_empty:
+            case 2:
                 empty();
                 break;
-            case R.id.action_error:
+            case 3:
                 error();
                 break;
-            case R.id.action_custom:
-                custom();
-                return true;
-            case R.id.action_content:
+            case 4:
                 content();
                 break;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void content() {
@@ -99,10 +72,6 @@ public class TestFragment extends Fragment {
                     }
                 })
                 .show();
-    }
-
-    private void custom() {
-        Scorpio.with(this).get(CustomState.class).show();
     }
 
 }

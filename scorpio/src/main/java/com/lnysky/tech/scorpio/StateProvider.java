@@ -32,22 +32,4 @@ final class StateProvider {
     interface Factory {
         <T extends State> T create(Class<T> clazz);
     }
-
-    static class DefaultFactory implements Factory {
-
-        @SuppressWarnings("ClassNewInstance")
-        @NonNull
-        @Override
-        public <T extends State> T create(@NonNull Class<T> modelClass) {
-            //noinspection TryWithIdenticalCatches
-            try {
-                return modelClass.newInstance();
-            } catch (InstantiationException e) {
-                throw new RuntimeException("Cannot create an instance of " + modelClass, e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Cannot create an instance of " + modelClass, e);
-            }
-        }
-    }
-
 }
