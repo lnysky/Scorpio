@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -13,121 +13,122 @@ import androidx.fragment.app.Fragment;
  */
 public class Scorpio {
 
-    public static Bar with(Activity activity) {
-        View view = ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
-        return with(view, false);
+    public static ActivityBar with(Activity activity) {
+        return new ActivityBar(activity);
     }
 
-    public static Bar with(Fragment fragment) {
-        View view = fragment.getView();
-        return with(view, true);
+    public static XFragmentBar with(Fragment fragment) {
+        return new XFragmentBar(fragment);
     }
 
-    public static Bar with(android.app.Fragment fragment) {
-        View view = fragment.getView();
-        return with(view, true);
+    public static FragmentBar with(android.app.Fragment fragment) {
+        return new FragmentBar(fragment);
     }
 
-    public static Bar with(View view) {
-        return with(view, true);
+    public static StateLayoutBar with(@NonNull StateLayout stateLayout) {
+        return new StateLayoutBar(stateLayout);
     }
 
-    private static Bar with(View view, boolean isParent) {
-        if (view == null) {
-            throw new NullPointerException("view must be not null");
+    private static StateLayout with(@NonNull View view) {
+        if (view instanceof StateLayout) {
+            return (StateLayout) view;
         }
+
+        StateLayout layout = new StateLayout(view.getContext());
 
         ViewParent viewParent = view.getParent();
-        if (viewParent instanceof RelativeLayout) {
-            throw new IllegalStateException("the parent of view is RelativeLayout, not support");
-        }
-
-        if (isParent) {
-            if (viewParent instanceof Bar) {
-                return (Bar) viewParent;
-            }
-        } else {
-            if (view instanceof Bar) {
-                return (Bar) view;
-            }
-        }
-
         if (viewParent instanceof ViewGroup) {
             ViewGroup parent = (ViewGroup) viewParent;
             ViewGroup.LayoutParams lp = view.getLayoutParams();
             int index = parent.indexOfChild(view);
             parent.removeView(view);
 
-            StateLayout layout = new StateLayout(view);
             parent.addView(layout, index, lp);
-            return layout;
-        } else {
-            throw new IllegalStateException("view must have a non-null ViewGroup viewParent");
+        }
+
+        layout.showContent(view);
+        return layout;
+    }
+
+    public static class ActivityBar extends AbsBar {
+
+        private Activity activity;
+
+        ActivityBar(Activity activity) {
+            this.activity = activity;
+        }
+
+        protected Bar with() {
+            View view = ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+            return Scorpio.with(view);
         }
     }
 
-    public static Content content(Activity activity) {
-        return with(activity).get(Content.class);
+    public static class XFragmentBar extends AbsBar {
+
+        private Fragment fragment;
+
+        XFragmentBar(Fragment fragment) {
+            this.fragment = fragment;
+        }
+
+        public View wrapper(View view) {
+            return Scorpio.with(view);
+        }
+
+        protected Bar with() {
+            View view = fragment.getView();
+            if (view == null) {
+                throw new NullPointerException("view must be not null");
+            }
+
+            if (view instanceof StateLayout) {
+                return Scorpio.with(view);
+            } else {
+                throw new IllegalStateException("set root view to be StateLayout " +
+                        "or wrapper the root view in onCreateView and return the wrapper view");
+            }
+        }
     }
 
-    public static Content content(Fragment fragment) {
-        return with(fragment).get(Content.class);
+    public static class FragmentBar extends AbsBar {
+
+        private android.app.Fragment fragment;
+
+        FragmentBar(android.app.Fragment fragment) {
+            this.fragment = fragment;
+        }
+
+        public View wrapper(View view) {
+            return Scorpio.with(view);
+        }
+
+        protected Bar with() {
+            View view = fragment.getView();
+            if (view == null) {
+                throw new NullPointerException("view must be not null");
+            }
+
+            if (view instanceof StateLayout) {
+                return Scorpio.with(view);
+            } else {
+                throw new IllegalStateException("set root view to be StateLayout " +
+                        "or wrapper the root view in onCreateView and return the wrapper view");
+            }
+        }
     }
 
-    public static Content content(android.app.Fragment fragment) {
-        return with(fragment).get(Content.class);
-    }
+    public static class StateLayoutBar extends AbsBar {
 
-    public static Content content(View view) {
-        return with(view).get(Content.class);
-    }
+        private StateLayout stateLayout;
 
-    public static Loading loading(Activity activity) {
-        return with(activity).get(Loading.class);
-    }
+        StateLayoutBar(@NonNull StateLayout stateLayout) {
+            this.stateLayout = stateLayout;
+        }
 
-    public static Loading loading(Fragment fragment) {
-        return with(fragment).get(Loading.class);
-    }
-
-    public static Loading loading(android.app.Fragment fragment) {
-        return with(fragment).get(Loading.class);
-    }
-
-    public static Loading loading(View view) {
-        return with(view).get(Loading.class);
-    }
-
-    public static Empty empty(Activity activity) {
-        return with(activity).get(Empty.class);
-    }
-
-    public static Empty empty(Fragment fragment) {
-        return with(fragment).get(Empty.class);
-    }
-
-    public static Empty empty(android.app.Fragment fragment) {
-        return with(fragment).get(Empty.class);
-    }
-
-    public static Empty empty(View view) {
-        return with(view).get(Empty.class);
-    }
-
-    public static Error error(Activity activity) {
-        return with(activity).get(Error.class);
-    }
-
-    public static Error error(Fragment fragment) {
-        return with(fragment).get(Error.class);
-    }
-
-    public static Error error(android.app.Fragment fragment) {
-        return with(fragment).get(Error.class);
-    }
-
-    public static Error error(View view) {
-        return with(view).get(Error.class);
+        protected Bar with() {
+            return stateLayout;
+        }
     }
 
 }

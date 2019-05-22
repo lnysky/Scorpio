@@ -18,7 +18,7 @@ public class Empty extends State<Empty.ViewHolder> {
     private String tips;
 
     @Override
-    public ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+    public ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_empty, parent, false);
         return new ViewHolder(view);
     }
@@ -42,7 +42,7 @@ public class Empty extends State<Empty.ViewHolder> {
         return this;
     }
 
-    static class ViewHolder extends StateViewHolder {
+    static class ViewHolder extends StateLayout.ViewHolder {
 
         ImageView emptyImage;
         TextView emptyText;

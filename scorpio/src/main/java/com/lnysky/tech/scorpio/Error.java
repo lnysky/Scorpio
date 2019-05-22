@@ -20,7 +20,7 @@ public class Error extends State<Error.ViewHolder> {
     private int errorImage;
 
     @Override
-    protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+    protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_error, parent, false);
         return new ViewHolder(view);
     }
@@ -55,7 +55,7 @@ public class Error extends State<Error.ViewHolder> {
         return this;
     }
 
-    class ViewHolder extends StateViewHolder {
+    class ViewHolder extends StateLayout.ViewHolder {
 
         ImageView errorImage;
         TextView errorText;

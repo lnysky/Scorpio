@@ -2,16 +2,11 @@ package com.lnysky.tech.scorpio.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 
 import com.lnysky.tech.scorpio.Scorpio;
-import com.lnysky.tech.scorpio.State;
-import com.lnysky.tech.scorpio.StateViewHolder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +16,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.tv_test_xml).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), TestXmlActivity.class));
+            }
+        });
     }
 
     public void testFragment(View v) {
@@ -31,26 +32,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_loading:
-                Scorpio.loading(this).setTips("加载中...").show();
+                loading();
                 return true;
             case R.id.action_empty:
-                Scorpio.empty(this).setTips("主页面空空的~~").show();
+                empty();
                 return true;
             case R.id.action_error:
-                Scorpio.error(this)
-                        .setRetryText("重新加载")
-                        .setOnRetryListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Scorpio.loading(MainActivity.this).show();
-                            }
-                        }).show();
+                error();
                 return true;
             case R.id.action_custom:
-                Scorpio.with(this).get(CustomState.class).show();
+                custom();
                 return true;
             case R.id.action_content:
-                Scorpio.content(this).show();
+                content();
                 return true;
         }
         return false;
@@ -62,33 +56,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public static class CustomState extends State<CustomState.ViewHolder> {
+    private void content() {
+        Scorpio.with(this).content().show();
+    }
 
-        @Override
-        protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.custom, parent, false);
-            return new ViewHolder(view);
-        }
+    private void loading() {
+        Scorpio.with(this).loading().setTips("加载中...").show();
+    }
 
-        @Override
-        protected void onSwitchState(ViewHolder holder, boolean show) {
-            super.onSwitchState(holder, show);
-            AlphaAnimation animation;
-            if (show) {
-                animation = new AlphaAnimation(0f, 1f);
-            } else {
-                animation = new AlphaAnimation(1f, 0f);
-            }
-            animation.setDuration(1000);
-            holder.getView().startAnimation(animation);
-        }
+    private void empty() {
+        Scorpio.with(this).empty().setTips("主页面空空的~~").show();
+    }
 
-        static class ViewHolder extends StateViewHolder {
+    private void error() {
+        Scorpio.with(this).error()
+                .setRetryText("重新加载")
+                .setOnRetryListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loading();
+                    }
+                }).show();
+    }
 
-            ViewHolder(View view) {
-                super(view);
-            }
-        }
+    private void custom() {
+        Scorpio.with(this).get(CustomState.class).show();
     }
 
 }
