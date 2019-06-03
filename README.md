@@ -3,70 +3,115 @@
 
 一行代码切换状态布局，内置数据为空，错误，加载中三种默认布局。
 
-## gradle依赖
+## 添加gradle依赖
 
 ```groovy
 implementation 'com.lnysky.tech:scorpio:Latest Version'
 ```
 
 #### 使用
-- 加载中
-```java
-	Scorpio.loading(this).setTips("加载中...").show();
-```
-- 数据为空
-```java
-	Scorpio.empty(this).setTips("主页面空空的~~").show();
-```
-- 加载出错
-```java
-    Scorpio.error(this)
-        .setRetryText("重新加载")
-        .setOnRetryListener(new View.OnClickListener() {
+
+1. activity中使用
+
+    - 加载中
+    ```java
+        Scorpio.with(this).loading().setTips("加载中...").show();
+    ```
+    - 数据为空
+    ```java
+        Scorpio.with(this).empty().setTips("主页面空空的~~").show();
+    ```
+    - 加载出错
+    ```java
+        Scorpio.with(this).error()
+            .setRetryText("重新加载")
+            .setOnRetryListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Scorpio.loading(MainActivity.this).show();
+                }
+            }).show();
+    ```
+    - 自定义状态
+
+    ```java
+        Scorpio.with(this).get(CustomState.class).show();
+    
+        public class CustomState extends State<CustomState.ViewHolder> {
+    
             @Override
-            public void onClick(View v) {
-                Scorpio.loading(MainActivity.this).show();
+            protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+                View view = inflater.inflate(R.layout.custom, parent, false);
+                return new ViewHolder(view);
             }
-        }).show();
-```
-- 自定义状态布局
-
-```java
-	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-		Scorpio.with(this).get(CustomState.class).show();
-    }
-
-	public class CustomState extends State<CustomState.ViewHolder> {
-
-        @Override
-        protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            View view = inflater.inflate(R.layout.custom, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        protected void onSwitchState(ViewHolder holder, boolean show) {
-            super.onSwitchState(holder, show);
-            AlphaAnimation animation;
-            if (show) {
-                animation = new AlphaAnimation(0f, 1f);
-            } else {
-                animation = new AlphaAnimation(1f, 0f);
+    
+            @Override
+            protected void onSwitchState(ViewHolder holder, boolean show) {
+                super.onSwitchState(holder, show);
+                AlphaAnimation animation;
+                if (show) {
+                    animation = new AlphaAnimation(0f, 1f);
+                } else {
+                    animation = new AlphaAnimation(1f, 0f);
+                }
+                animation.setDuration(1000);
+                holder.getView().startAnimation(animation);
             }
-            animation.setDuration(1000);
-            holder.getView().startAnimation(animation);
-        }
-
-        static class ViewHolder extends StateViewHolder {
-
-            ViewHolder(View view) {
-                super(view);
+    
+            static class ViewHolder extends StateLayout.ViewHolder {
+    
+                ViewHolder(View view) {
+                    super(view);
+                }
             }
         }
-    }
-```
+    ```
+
+2. fragment中使用
+
+   - 在xml文件实现
+
+     ```xml
+     <?xml version="1.0" encoding="utf-8"?>
+     <com.lnysky.tech.scorpio.StateLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:tools="http://schemas.android.com/tools"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         tools:context=".TestFragment">
+     
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/text_content_show" />
+     
+     </com.lnysky.tech.scorpio.StateLayout>
+     ```
+
+     
+
+   - 代码中实现
+
+     ```java
+     @Override
+     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         View view = inflater.inflate(R.layout.fragment_test2, container, false);
+         return Scorpio.with(this).wrapper(view);
+     }
+     ```
+     **注意**：以上两种方式推荐使用第一种
+
+3. 直接使用StateLayout
+
+      ```java
+      private StateLayout stateLayout;
+      
+      
+      Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+      ```
+
+      
+
 ## License
 
 ```
