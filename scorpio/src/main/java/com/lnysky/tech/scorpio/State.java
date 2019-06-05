@@ -13,6 +13,7 @@ public abstract class State<VH extends StateLayout.ViewHolder> {
 
     StateSwitcher switcher;
     private VH viewHolder;
+    private boolean showing;
 
     VH createViewHolder(LayoutInflater inflater, ViewGroup parent) {
         if (viewHolder != null) {
@@ -26,17 +27,22 @@ public abstract class State<VH extends StateLayout.ViewHolder> {
         return viewHolder;
     }
 
+    public boolean isShowing() {
+        return showing;
+    }
+
     public final void show() {
-        if (switcher == null) throw new NullPointerException("must be set switcher");
+        if (switcher == null) throw new NullPointerException();
         switcher.switchState(this);
     }
 
-    void display(boolean show) {
-        onSwitchState(viewHolder, show);
+    void display(boolean showing) {
+        this.showing = showing;
+        onSwitchState(viewHolder, showing);
     }
 
-    protected void onSwitchState(VH holder, boolean show) {
-        holder.stateView.setVisibility(show ? View.VISIBLE : View.GONE);
+    protected void onSwitchState(VH holder, boolean showing) {
+        holder.stateView.setVisibility(showing ? View.VISIBLE : View.GONE);
     }
 
     protected abstract VH onCreateViewHolder(LayoutInflater inflater, ViewGroup parent);
@@ -47,7 +53,7 @@ public abstract class State<VH extends StateLayout.ViewHolder> {
         private static DefaultFactory sInstance;
 
         @NonNull
-        public static DefaultFactory getInstance() {
+        static DefaultFactory getInstance() {
             if (sInstance == null) {
                 sInstance = new DefaultFactory();
             }

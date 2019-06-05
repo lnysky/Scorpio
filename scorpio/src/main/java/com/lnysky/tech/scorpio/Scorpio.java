@@ -79,7 +79,7 @@ public class Scorpio {
         protected Bar with() {
             View view = fragment.getView();
             if (view == null) {
-                throw new NullPointerException("view must be not null");
+                throw new NullPointerException();
             }
 
             if (view instanceof StateLayout) {
@@ -106,7 +106,7 @@ public class Scorpio {
         protected Bar with() {
             View view = fragment.getView();
             if (view == null) {
-                throw new NullPointerException("view must be not null");
+                throw new NullPointerException();
             }
 
             if (view instanceof StateLayout) {

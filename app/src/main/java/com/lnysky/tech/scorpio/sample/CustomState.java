@@ -17,10 +17,10 @@ public class CustomState extends State<CustomState.ViewHolder> {
     }
 
     @Override
-    protected void onSwitchState(ViewHolder holder, boolean show) {
-        super.onSwitchState(holder, show);
+    protected void onSwitchState(ViewHolder holder, boolean showing) {
+        super.onSwitchState(holder, showing);
         AlphaAnimation animation;
-        if (show) {
+        if (showing) {
             animation = new AlphaAnimation(0f, 1f);
         } else {
             animation = new AlphaAnimation(1f, 0f);

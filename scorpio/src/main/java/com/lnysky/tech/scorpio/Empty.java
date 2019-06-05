@@ -24,8 +24,8 @@ public class Empty extends State<Empty.ViewHolder> {
     }
 
     @Override
-    protected void onSwitchState(ViewHolder holder, boolean show) {
-        super.onSwitchState(holder, show);
+    protected void onSwitchState(ViewHolder holder, boolean showing) {
+        super.onSwitchState(holder, showing);
         if (img != 0) {
             holder.emptyImage.setImageResource(img);
         }

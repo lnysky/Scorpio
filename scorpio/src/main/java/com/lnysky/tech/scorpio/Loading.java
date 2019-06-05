@@ -24,8 +24,8 @@ public class Loading extends State<Loading.ViewHolder> {
     }
 
     @Override
-    protected void onSwitchState(ViewHolder holder, boolean show) {
-        super.onSwitchState(holder, show);
+    protected void onSwitchState(ViewHolder holder, boolean showing) {
+        super.onSwitchState(holder, showing);
         holder.loadingText.setText(tips);
     }
 

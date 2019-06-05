@@ -26,8 +26,8 @@ public class Error extends State<Error.ViewHolder> {
     }
 
     @Override
-    protected void onSwitchState(ViewHolder holder, boolean show) {
-        super.onSwitchState(holder, show);
+    protected void onSwitchState(ViewHolder holder, boolean showing) {
+        super.onSwitchState(holder, showing);
         if (errorImage != 0) {
             holder.errorImage.setImageResource(errorImage);
         }
