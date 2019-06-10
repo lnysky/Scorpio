@@ -45,6 +45,7 @@ public abstract class State<VH extends StateLayout.ViewHolder> {
         holder.stateView.setVisibility(showing ? View.VISIBLE : View.GONE);
     }
 
+    @NonNull
     protected abstract VH onCreateViewHolder(LayoutInflater inflater, ViewGroup parent);
 
 

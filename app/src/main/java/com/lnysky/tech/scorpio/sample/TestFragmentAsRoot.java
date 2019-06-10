@@ -16,24 +16,28 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
-public class TestFragment extends Fragment {
+public class TestFragmentAsRoot extends Fragment {
 
-    public TestFragment() {
+    public TestFragmentAsRoot() {
         // Required empty public constructor
     }
 
-    public static TestFragment newInstance() {
-        TestFragment fragment = new TestFragment();
+    public static TestFragmentAsRoot newInstance() {
+        TestFragmentAsRoot fragment = new TestFragmentAsRoot();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.test, container, false);
-        return Scorpio.with(this).wrapper(view);
+        return inflater.inflate(R.layout.test_as_root, container, false);
     }
 
     @Override

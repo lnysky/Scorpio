@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_empty"
-        android:title="Empty"
+        android:id="@+id/action_content"
+        android:title="Content"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_loading"
         android:title="Loading"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_empty"
+        android:title="Empty"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_error"
@@ -17,9 +21,5 @@
     <item
         android:id="@+id/action_custom"
         android:title="Custom"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_content"
-        android:title="Content"
         app:showAsAction="never" />
 </menu>

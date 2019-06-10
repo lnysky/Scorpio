@@ -8,11 +8,14 @@ import android.view.animation.AlphaAnimation;
 import com.lnysky.tech.scorpio.State;
 import com.lnysky.tech.scorpio.StateLayout;
 
+import androidx.annotation.NonNull;
+
 public class CustomState extends State<CustomState.ViewHolder> {
 
+    @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.custom, parent, false);
+        View view = inflater.inflate(R.layout.state_custom, parent, false);
         return new ViewHolder(view);
     }
 

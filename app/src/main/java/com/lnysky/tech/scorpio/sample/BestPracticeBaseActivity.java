@@ -1,20 +1,28 @@
 package com.lnysky.tech.scorpio.sample;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.lnysky.tech.scorpio.Scorpio;
+import com.lnysky.tech.scorpio.StateLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestActivity extends AppCompatActivity {
+@SuppressLint("Registered")
+public class BestPracticeBaseActivity extends AppCompatActivity {
+
+    private StateLayout stateLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+    public void setContentView(int layoutResID) {
+        super.setContentView(R.layout.activity_best_practice_base);
+        stateLayout = findViewById(R.id.state_layout);
+        View contentView = LayoutInflater.from(this)
+                .inflate(layoutResID, stateLayout, false);
+        stateLayout.setContentView(contentView);
     }
 
     @Override
@@ -46,27 +54,27 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void content() {
-        Scorpio.with(this)
+        Scorpio.with(stateLayout)
                 .content()
                 .show();
     }
 
     private void loading() {
-        Scorpio.with(this)
+        Scorpio.with(stateLayout)
                 .loading()
                 .setTips("加载中...")
                 .show();
     }
 
     private void empty() {
-        Scorpio.with(this)
+        Scorpio.with(stateLayout)
                 .empty()
                 .setTips("主页面空空的~~")
                 .show();
     }
 
     private void error() {
-        Scorpio.with(this)
+        Scorpio.with(stateLayout)
                 .error()
                 .setRetryText("重新加载")
                 .setOnRetryListener(new View.OnClickListener() {
@@ -79,7 +87,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void custom() {
-        Scorpio.with(this)
+        Scorpio.with(stateLayout)
                 .get(CustomState.class)
                 .show();
     }

@@ -18,10 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TestActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".TestXmlActivity"></activity>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".TestAsRootActivity" />
+        <activity android:name=".TestFragmentActivity" />
+        <activity android:name=".TestFragmentAsRootActivity" />
+        <activity android:name=".XmlTestActivity" />
+        <activity android:name=".BestPracticeTestActivity" />
     </application>
 
 </manifest>

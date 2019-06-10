@@ -1,75 +1,48 @@
 package com.lnysky.tech.scorpio.sample;
 
-
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.lnysky.tech.scorpio.Scorpio;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-
-public class TestFragment extends Fragment {
-
-    public TestFragment() {
-        // Required empty public constructor
-    }
-
-    public static TestFragment newInstance() {
-        TestFragment fragment = new TestFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class TestAsRootActivity extends AppCompatActivity {
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.test, container, false);
-        return Scorpio.with(this).wrapper(view);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (isVisible()) {
-            inflater.inflate(R.menu.state, menu);
-        }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.test_as_root);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
+        switch (item.getItemId()) {
             case R.id.action_loading:
                 loading();
-                break;
+                return true;
             case R.id.action_empty:
                 empty();
-                break;
+                return true;
             case R.id.action_error:
                 error();
-                break;
+                return true;
             case R.id.action_custom:
                 custom();
                 return true;
             case R.id.action_content:
                 content();
-                break;
+                return true;
         }
-        return super.onOptionsItemSelected(item);
+        return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.state, menu);
+        return true;
     }
 
     private void content() {

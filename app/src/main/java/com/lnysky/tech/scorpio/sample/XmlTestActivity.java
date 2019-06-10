@@ -9,14 +9,14 @@ import com.lnysky.tech.scorpio.StateLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestXmlActivity extends AppCompatActivity implements View.OnClickListener {
+public class XmlTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     private StateLayout stateLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_xml);
+        setContentView(R.layout.activity_xml_test);
         TextView tvLoading = findViewById(R.id.tv_loading);
         TextView tvEmpty = findViewById(R.id.tv_empty);
         TextView tvError = findViewById(R.id.tv_error);
@@ -49,15 +49,23 @@ public class TestXmlActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void content() {
-        Scorpio.with(stateLayout).content().show();
+        Scorpio.with(stateLayout)
+                .content()
+                .show();
     }
 
     private void loading() {
-        Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+        Scorpio.with(stateLayout)
+                .loading()
+                .setTips("加载中...")
+                .show();
     }
 
     private void empty() {
-        Scorpio.with(stateLayout).empty().setTips("主页面空空的~~").show();
+        Scorpio.with(stateLayout)
+                .empty()
+                .setTips("主页面空空的~~")
+                .show();
     }
 
     private void error() {

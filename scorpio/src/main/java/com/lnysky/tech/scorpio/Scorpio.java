@@ -46,7 +46,7 @@ public class Scorpio {
             parent.addView(layout, index, lp);
         }
 
-        layout.showContent(view);
+        layout.setContentView(view);
         return layout;
     }
 

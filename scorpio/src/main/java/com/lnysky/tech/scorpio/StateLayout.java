@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
@@ -19,6 +18,7 @@ final public class StateLayout extends FrameLayout implements Bar, StateSwitcher
     private LayoutInflater inflater;
     private StateProvider stateProvider;
     private State currentState;
+    private boolean isSetContentView = false;
 
     public StateLayout(Context context) {
         this(context, null);
@@ -41,16 +41,28 @@ final public class StateLayout extends FrameLayout implements Bar, StateSwitcher
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        if (getChildCount() > 0) {
-            if (getChildCount() > 1) {
-                throw new RuntimeException("only one child");
-            }
-            showContent(getChildAt(0));
+        if (getChildCount() > 1) {
+            throw new IllegalStateException("only one child");
         }
+
+        if (isSetContentView) {
+            return;
+        }
+
+        if (getChildCount() == 0) {
+            return;
+        }
+
+        View view = getChildAt(0);
+        setContentView(view);
     }
 
-    void showContent(View content) {
-        get(Content.class, new Content.Factory(content)).show();
+    public void setContentView(View view) {
+        if (isSetContentView) {
+            throw new IllegalStateException("the content view is set");
+        }
+        isSetContentView = true;
+        get(Content.class, new Content.Factory(view)).show();
     }
 
     @Override
@@ -67,19 +79,18 @@ final public class StateLayout extends FrameLayout implements Bar, StateSwitcher
 
     private State checkState(State state) {
         ViewHolder holder = state.getViewHolder();
-        if (holder == null) {
-            holder = state.createViewHolder(inflater, this);
-            ViewParent parent = holder.stateView.getParent();
-            if (parent == null) {
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-                addView(holder.stateView, lp);
-            } else if (parent == this) {
-                // nothing
-            } else {
-                throw new IllegalStateException("view's parent must be null");
-            }
+        if (holder != null) return state;
+
+        holder = state.createViewHolder(inflater, this);
+        ViewParent parent = holder.stateView.getParent();
+        if (parent == this) {
+            return state;
+        }
+
+        if (parent == null) {
+            addView(holder.stateView);
+        } else {
+            throw new IllegalStateException("view's parent must be null");
         }
         return state;
     }
@@ -90,6 +101,9 @@ final public class StateLayout extends FrameLayout implements Bar, StateSwitcher
     }
 
     <T extends State> T get(Class<T> clazz, @NonNull StateProvider.Factory factory) {
+        if (!isSetContentView) {
+            throw new IllegalStateException("please set the content view");
+        }
         T state = stateProvider.get(clazz, factory);
         state.switcher = this;
         return state;

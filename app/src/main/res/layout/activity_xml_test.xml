@@ -4,12 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lnysky.tech.scorpio.sample.TestXmlActivity">
+    tools:context="com.lnysky.tech.scorpio.sample.XmlTestActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:showIn="@layout/activity_xml_test">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="content" />
 
         <TextView
             android:id="@+id/tv_loading"
@@ -39,13 +49,13 @@
             android:text="error" />
 
         <TextView
-            android:id="@+id/tv_content"
+            android:id="@+id/tv_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="8dp"
-            android:text="content" />
+            android:text="Custom" />
     </LinearLayout>
 
     <com.lnysky.tech.scorpio.StateLayout
