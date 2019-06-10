@@ -101,16 +101,51 @@ implementation 'com.lnysky.tech:scorpio:Latest Version'
      ```
      **注意**：以上两种方式推荐使用第一种
 
-3. 直接使用StateLayout
+3. xml Layout中使用
 
-      ```java
-      private StateLayout stateLayout;
+      - StateLayout包含content view
+
+      ```xml
+      	<com.lnysky.tech.scorpio.StateLayout
+              android:id="@+id/state_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
       
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
       
-      Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/text_content_show" />
+              </LinearLayout>
+          </com.lnysky.tech.scorpio.StateLayout>
       ```
 
       
+
+      ```java
+          private StateLayout stateLayout;
+      
+          Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+      ```
+
+      - StateLayout不含content view，必须调用setContentView方法设置content view，此方法只能调用一次
+        
+      ```xml
+          <com.lnysky.tech.scorpio.StateLayout
+                  android:id="@+id/state_layout"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" />
+      ```
+
+      ```java
+          stateLayout = findViewById(R.id.state_layout);
+              View contentView = LayoutInflater.from(this)
+                      .inflate(layoutResID, stateLayout, false);
+              stateLayout.setContentView(contentView);
+      ```
 
 ## License
 

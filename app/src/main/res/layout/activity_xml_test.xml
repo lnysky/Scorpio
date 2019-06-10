@@ -55,7 +55,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="8dp"
-            android:text="Custom" />
+            android:text="custom" />
     </LinearLayout>
 
     <com.lnysky.tech.scorpio.StateLayout
