@@ -1,6 +1,8 @@
 package com.lnysky.tech.scorpio;
 
-public abstract class AbsBar implements Bar {
+import androidx.annotation.NonNull;
+
+public abstract class Wrapper implements Bar {
 
     public Content content() {
         return get(Content.class);
@@ -20,9 +22,10 @@ public abstract class AbsBar implements Bar {
 
     @Override
     public <T extends State> T get(Class<T> clazz) {
-        return with().get(clazz);
+        return getRealBar().get(clazz);
     }
 
-    protected abstract Bar with();
+    @NonNull
+    protected abstract Bar getRealBar();
 
 }
