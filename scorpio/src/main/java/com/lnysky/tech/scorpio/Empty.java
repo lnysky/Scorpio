@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 /**
  * Created by lny on 2018/11/28.
@@ -17,6 +18,7 @@ public class Empty extends State<Empty.ViewHolder> {
     private int img;
     private String tips;
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_empty, parent, false);

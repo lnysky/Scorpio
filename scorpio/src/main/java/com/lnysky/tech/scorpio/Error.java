@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
 
 /**
  * Created by lny on 2018/11/28.
@@ -19,6 +20,7 @@ public class Error extends State<Error.ViewHolder> {
     @DrawableRes
     private int errorImage;
 
+    @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_error, parent, false);

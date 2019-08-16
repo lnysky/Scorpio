@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 /**
  * Created by lny on 2018/11/28.
  */
@@ -17,6 +19,7 @@ public class Loading extends State<Loading.ViewHolder> {
         return this;
     }
 
+    @NonNull
     @Override
     protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         View view = inflater.inflate(R.layout.scorpio_state_loading, parent, false);

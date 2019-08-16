@@ -19,6 +19,7 @@ public final class Content extends State<StateLayout.ViewHolder> {
         this.view = view;
     }
 
+    @NonNull
     @Override
     public StateLayout.ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
         return new StateLayout.ViewHolder(view);
