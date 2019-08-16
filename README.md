@@ -6,146 +6,116 @@
 ## 添加gradle依赖
 
 ```groovy
-implementation 'com.lnysky.tech:scorpio:Latest Version'
+implementation 'com.lnysky.tech:scorpio:0.1.1'
 ```
 
-#### 使用
+### 使用
 
-1. activity中使用
+#### 内置状态
 
-    - 加载中
-    ```java
-        Scorpio.with(this).loading().setTips("加载中...").show();
-    ```
-    - 数据为空
-    ```java
-        Scorpio.with(this).empty().setTips("主页面空空的~~").show();
-    ```
-    - 加载出错
-    ```java
-        Scorpio.with(this).error()
-            .setRetryText("重新加载")
-            .setOnRetryListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Scorpio.loading(MainActivity.this).show();
-                }
-            }).show();
-    ```
-    - 自定义状态
-
-    ```java
-        Scorpio.with(this).get(CustomState.class).show();
-    
-        public class CustomState extends State<CustomState.ViewHolder> {
-    
+- 加载中
+```java
+	Scorpio.with(this).loading().setTips("加载中...").show();
+```
+- 数据为空
+```java
+	Scorpio.with(this).empty().setTips("主页面空空的~~").show();
+```
+- 加载出错
+```java
+    Scorpio.with(this).error()
+        .setRetryText("重新加载")
+        .setOnRetryListener(new View.OnClickListener() {
             @Override
-            protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
-                View view = inflater.inflate(R.layout.custom, parent, false);
-                return new ViewHolder(view);
+            public void onClick(View v) {
+                Scorpio.loading(MainActivity.this).show();
             }
-    
-            @Override
-            protected void onSwitchState(ViewHolder holder, boolean show) {
-                super.onSwitchState(holder, show);
-                AlphaAnimation animation;
-                if (show) {
-                    animation = new AlphaAnimation(0f, 1f);
-                } else {
-                    animation = new AlphaAnimation(1f, 0f);
-                }
-                animation.setDuration(1000);
-                holder.getView().startAnimation(animation);
-            }
-    
-            static class ViewHolder extends StateLayout.ViewHolder {
-    
-                ViewHolder(View view) {
-                    super(view);
-                }
-            }
-        }
-    ```
+        }).show();
+```
+#### 自定义状态
 
-2. fragment中使用
+```java
+public class CustomState extends State<CustomState.ViewHolder> {
 
-   - 在xml文件实现
+	@Override
+	protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+		View view = inflater.inflate(R.layout.custom, parent, false);
+		return new ViewHolder(view);
+	}
 
-     ```xml
-     <?xml version="1.0" encoding="utf-8"?>
-     <com.lnysky.tech.scorpio.StateLayout xmlns:android="http://schemas.android.com/apk/res/android"
-         xmlns:tools="http://schemas.android.com/tools"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         tools:context=".TestFragment">
-     
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="@string/text_content_show" />
-     
-     </com.lnysky.tech.scorpio.StateLayout>
-     ```
+	@Override
+	protected void onSwitchState(ViewHolder holder, boolean show) {
+		super.onSwitchState(holder, show);
+		AlphaAnimation animation;
+		if (show) {
+			animation = new AlphaAnimation(0f, 1f);
+		} else {
+			animation = new AlphaAnimation(1f, 0f);
+		}
+		animation.setDuration(1000);
+		holder.getView().startAnimation(animation);
+	}
 
-     
+	static class ViewHolder extends StateLayout.ViewHolder {
 
-   - 代码中实现
+		ViewHolder(View view) {
+			super(view);
+		}
+	}
+}
+```
+```java
+Scorpio.with(this).get(CustomState.class).show();
+```
 
-     ```java
-     @Override
-     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
-         View view = inflater.inflate(R.layout.fragment_test2, container, false);
-         return Scorpio.with(this).wrapper(view);
-     }
-     ```
-     **注意**：以上两种方式推荐使用第一种
+### fragment中使用
 
-3. xml Layout中使用
+```java
+@Override
+public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+						 Bundle savedInstanceState) {
+	View view = inflater.inflate(R.layout.fragment_test2, container, false);
+	return Scorpio.with(this).wrapper(view);
+}
+```
+注意：如果StateLayout作为root view，可以不调wrapper，类似在activity中使用方法
 
-      - StateLayout包含content view
+### xml中使用
 
-      ```xml
-      	<com.lnysky.tech.scorpio.StateLayout
-              android:id="@+id/state_layout"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-      
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-      
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="@string/text_content_show" />
-              </LinearLayout>
-          </com.lnysky.tech.scorpio.StateLayout>
-      ```
+- StateLayout包含content view
 
-      
+```xml
+<com.lnysky.tech.scorpio.StateLayout
+	  android:id="@+id/state_layout"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent">
 
-      ```java
-          private StateLayout stateLayout;
-      
-          Scorpio.with(stateLayout).loading().setTips("加载中...").show();
-      ```
+	  <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="wrap_content">
 
-      - StateLayout不含content view，必须调用setContentView方法设置content view，此方法只能调用一次
-        
-      ```xml
-          <com.lnysky.tech.scorpio.StateLayout
-                  android:id="@+id/state_layout"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent" />
-      ```
+		  <TextView
+			  android:layout_width="wrap_content"
+			  android:layout_height="wrap_content"
+			  android:text="@string/text_content_show" />
+	  </LinearLayout>
+</com.lnysky.tech.scorpio.StateLayout>
+```
 
-      ```java
-          stateLayout = findViewById(R.id.state_layout);
-              View contentView = LayoutInflater.from(this)
-                      .inflate(layoutResID, stateLayout, false);
-              stateLayout.setContentView(contentView);
-      ```
+```java
+  private StateLayout stateLayout;
+
+  Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+```
+
+- StateLayout不含content view，则必须调用setContentView方法设置content view，此方法只能调用一次。代码如下：
+
+```java
+  stateLayout = findViewById(R.id.state_layout);
+	  View contentView = LayoutInflater.from(this)
+			  .inflate(layoutResID, stateLayout, false);
+	  stateLayout.setContentView(contentView);
+```
 
 ## License
 
