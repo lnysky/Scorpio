@@ -5,7 +5,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class XFragmentBar extends Wrapper {
+public final class XFragmentBar extends Wrapper {
 
     @NonNull
     private final Fragment fragment;
