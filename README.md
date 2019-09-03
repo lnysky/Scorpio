@@ -38,7 +38,7 @@ implementation 'com.lnysky.tech:scorpio:0.1.1'
 public class CustomState extends State<CustomState.ViewHolder> {
 
 	@Override
-	protected ViewHolder onCreateStateViewHolder(LayoutInflater inflater, ViewGroup parent) {
+	protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {
 		View view = inflater.inflate(R.layout.custom, parent, false);
 		return new ViewHolder(view);
 	}
