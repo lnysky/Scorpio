@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 /**
  * Created by lny on 2018/11/28.
  */
-public final class Content extends State<StateLayout.ViewHolder> {
+public final class Content extends StateLayout.State<StateLayout.ViewHolder> {
 
     private View view;
 
@@ -25,7 +25,7 @@ public final class Content extends State<StateLayout.ViewHolder> {
         return new StateLayout.ViewHolder(view);
     }
 
-    static class Factory implements StateProvider.Factory {
+    static class Factory implements StateLayout.Factory {
 
         private View view;
 
@@ -36,7 +36,7 @@ public final class Content extends State<StateLayout.ViewHolder> {
         @SuppressWarnings("ClassNewInstance")
         @NonNull
         @Override
-        public <T extends State> T create(@NonNull Class<T> modelClass) {
+        public <T extends StateLayout.State> T create(@NonNull Class<T> modelClass) {
             //noinspection TryWithIdenticalCatches
             try {
                 return modelClass.getConstructor(View.class).newInstance(view);

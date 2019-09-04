@@ -21,7 +21,7 @@ public abstract class Wrapper implements Bar {
     }
 
     @Override
-    public <T extends State> T get(Class<T> clazz) {
+    public <T extends StateLayout.State> T get(Class<T> clazz) {
         return getRealBar().get(clazz);
     }
 

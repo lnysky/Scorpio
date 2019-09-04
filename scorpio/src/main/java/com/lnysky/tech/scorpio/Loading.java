@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 /**
  * Created by lny on 2018/11/28.
  */
-public class Loading extends State<Loading.ViewHolder> {
+public class Loading extends StateLayout.State<Loading.ViewHolder> {
 
     private String tips;
 

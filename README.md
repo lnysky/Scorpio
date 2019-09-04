@@ -35,7 +35,7 @@ implementation 'com.lnysky.tech:scorpio:0.1.1'
 #### 自定义状态
 
 ```java
-public class CustomState extends State<CustomState.ViewHolder> {
+public class CustomState extends StateLayout.State<CustomState.ViewHolder> {
 
 	@Override
 	protected ViewHolder onCreateViewHolder(LayoutInflater inflater, ViewGroup parent) {

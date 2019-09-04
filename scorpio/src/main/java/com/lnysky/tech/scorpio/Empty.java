@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 /**
  * Created by lny on 2018/11/28.
  */
-public class Empty extends State<Empty.ViewHolder> {
+public class Empty extends StateLayout.State<Empty.ViewHolder> {
 
     @DrawableRes
     private int img;

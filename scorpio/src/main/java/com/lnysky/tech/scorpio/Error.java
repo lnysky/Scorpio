@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 /**
  * Created by lny on 2018/11/28.
  */
-public class Error extends State<Error.ViewHolder> {
+public class Error extends StateLayout.State<Error.ViewHolder> {
 
     private View.OnClickListener onRetryListener;
     private String tips;

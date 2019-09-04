@@ -5,12 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 
-import com.lnysky.tech.scorpio.State;
 import com.lnysky.tech.scorpio.StateLayout;
 
 import androidx.annotation.NonNull;
 
-public class CustomState extends State<CustomState.ViewHolder> {
+public class CustomState extends StateLayout.State<CustomState.ViewHolder> {
 
     @NonNull
     @Override
