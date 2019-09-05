@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+
+    resourcePrefix "scorpio_"
+}
+
+dependencies {
+    implementation rootProject.ext.dependencies.xAppCompat
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+publish {
+    userOrg = 'danyon'
+    groupId = 'com.lnysky'
+    artifactId = 'scorpio-x'
+    publishVersion = '0.1.2'
+    desc = 'An Android library makes it easier to switch state layout.'
+    website = 'https://github.com/lnysky/Scorpio'
+}
