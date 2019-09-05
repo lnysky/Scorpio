@@ -1,38 +1,52 @@
 # scorpio
 [ ![Download](https://api.bintray.com/packages/danyon/maven/scorpio/images/download.svg) ](https://bintray.com/danyon/maven/scorpio/_latestVersion)[![License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-一行代码切换状态布局，内置数据为空，错误，加载中三种默认布局。
+一行代码切换状态布局，内置加载中，数据为空，错误三种状态布局。
 
-## 添加gradle依赖
+## Gradle 依赖
+
+support
 
 ```groovy
-implementation 'com.lnysky.tech:scorpio:0.1.1'
+implementation 'com.lnysky.scorpio:support:0.1.2'
 ```
 
-### 使用
+androidx
 
-#### 内置状态
+```groovy
+implementation 'com.lnysky.scorpio:x:0.1.2'
+```
+
+## 使用
+
+#### 显示原始状态
+
+```jav
+Scorpio.with(this).content().show();
+```
+
+#### 显示内置状态
 
 - 加载中
 ```java
-	Scorpio.with(this).loading().setTips("加载中...").show();
+Scorpio.with(this).loading().setTips("加载中...").show();
 ```
 - 数据为空
 ```java
-	Scorpio.with(this).empty().setTips("主页面空空的~~").show();
+Scorpio.with(this).empty().setTips("主页面空空的~~").show();
 ```
 - 加载出错
 ```java
-    Scorpio.with(this).error()
-        .setRetryText("重新加载")
-        .setOnRetryListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Scorpio.loading(MainActivity.this).show();
-            }
-        }).show();
+Scorpio.with(this).error()
+    .setRetryText("重新加载")
+    .setOnRetryListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Scorpio.loading(MainActivity.this).show();
+        }
+    }).show();
 ```
-#### 自定义状态
+#### 显示自定义状态
 
 ```java
 public class CustomState extends StateLayout.State<CustomState.ViewHolder> {
@@ -68,7 +82,9 @@ public class CustomState extends StateLayout.State<CustomState.ViewHolder> {
 Scorpio.with(this).get(CustomState.class).show();
 ```
 
-### fragment中使用
+## 问题
+
+- fragment中使用
 
 ```java
 @Override
@@ -80,12 +96,12 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
 ```
 注意：如果StateLayout作为root view，可以不调wrapper，类似在activity中使用方法
 
-### xml中使用
+- 布局中使用
 
-- StateLayout包含content view
+StateLayout有一个子view
 
 ```xml
-<com.lnysky.tech.scorpio.StateLayout
+<com.lnysky.scorpio.StateLayout
 	  android:id="@+id/state_layout"
 	  android:layout_width="match_parent"
 	  android:layout_height="match_parent">
@@ -99,28 +115,28 @@ public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
 			  android:layout_height="wrap_content"
 			  android:text="@string/text_content_show" />
 	  </LinearLayout>
-</com.lnysky.tech.scorpio.StateLayout>
+</com.lnysky.scorpio.StateLayout>
 ```
 
 ```java
-  private StateLayout stateLayout;
+private StateLayout stateLayout;
 
-  Scorpio.with(stateLayout).loading().setTips("加载中...").show();
+Scorpio.with(stateLayout).loading().setTips("加载中...").show();
 ```
 
-- StateLayout不含content view，则必须调用setContentView方法设置content view，此方法只能调用一次。代码如下：
+StateLayout不含子view，则必须调用setContentView方法设置content view，此方法只能调用一次。
 
 ```java
-  stateLayout = findViewById(R.id.state_layout);
-	  View contentView = LayoutInflater.from(this)
-			  .inflate(layoutResID, stateLayout, false);
-	  stateLayout.setContentView(contentView);
+stateLayout = findViewById(R.id.state_layout);
+View contentView = LayoutInflater.from(this).inflate(layoutResID, stateLayout, false);
+stateLayout.setContentView(contentView);
 ```
+**注意**：后面会考虑强制有一个view，去掉setContentView()方法。
 
 ## License
 
 ```
-Copyright (C) 2017 - present, Danyon Liu.
+Copyright (C) Copyright 2019 lnysky
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

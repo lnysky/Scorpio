@@ -1,1 +1,1 @@
-include ':app', ':scorpio'
+include ':support', ':supportSample', ':x', ':xSample'
