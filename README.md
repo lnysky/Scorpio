@@ -1,5 +1,5 @@
 # scorpio
-[ ![Download](https://api.bintray.com/packages/danyon/maven/scorpio/images/download.svg) ](https://bintray.com/danyon/maven/scorpio/_latestVersion)[![License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[ ![Download](https://api.bintray.com/packages/danyon/maven/scorpio-support/images/download.svg) ](https://bintray.com/danyon/maven/scorpio-support/_latestVersion)[![License](https://img.shields.io/badge/license-Apache%202-lightgrey.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 一行代码切换状态布局，内置加载中，数据为空，错误三种状态布局。
 
